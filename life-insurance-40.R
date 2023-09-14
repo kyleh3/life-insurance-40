@@ -64,10 +64,13 @@ life_insurance_40_2[40,6] <- NA
 life_insurance_40_2[41,6] <- NA
 life_insurance_40_2[42,6] <- NA
 
-# Visualize the data: version1-0
-ggplot(data = life_insurance_40_2)+
-  geom_smooth(mapping=aes(x=age,y=scheduled_premium))+
-  geom_smooth(mapping=aes(x=age,y=twenty_year_premium))
+# Filters the data to age 60 and under
+life_insurance_40_2_under60 <- filter(life_insurance_40_2, age <= 60)
 
-# Sum the premium for the 20-year
+# Plots both the 40-year and 20-year terms
+ggplot(life_insurance_40_2_under60, aes(x=age))+
+  geom_line(aes(y=scheduled_premium), color="steelblue", linetype="twodash")+
+  geom_line(aes(y=twenty_year_premium), color = "darkred")
+
+# Sum the premiums for the 20-year policy (returns a result of "NA")
 sum(life_insurance_40_2$twenty_year_premium, na.rm=TRUE)
